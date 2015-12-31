@@ -98,6 +98,7 @@ namespace openiddicttest
 
             //app.UseApplicationInsightsExceptionTelemetry();
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseIdentity();
