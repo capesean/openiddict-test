@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{91857179-3B84-45CD-998A-AA44B84CD72F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C0AD72C4-54FA-49CC-9BA5-7C19DA1DB3D3}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "openiddict-test", "src\openiddict-test\openiddict-test.xproj", "{F4D55D74-52C4-4575-BE4D-9C92B35339B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4D55D74-52C4-4575-BE4D-9C92B35339B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D55D74-52C4-4575-BE4D-9C92B35339B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D55D74-52C4-4575-BE4D-9C92B35339B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D55D74-52C4-4575-BE4D-9C92B35339B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4D55D74-52C4-4575-BE4D-9C92B35339B0} = {91857179-3B84-45CD-998A-AA44B84CD72F}
+	EndGlobalSection
+EndGlobal
