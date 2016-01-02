@@ -20,7 +20,7 @@
   },
 
   "commands": {
-    "web": "openiddicttest",
+    "web": "openiddict-test",
     "ef": "EntityFramework.Commands"
   },
 

@@ -5,7 +5,11 @@ using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OpenIddict;
+using OpenIddict.Models;
 using openiddicttest.Models;
+using System.Linq;
+using CryptoHelper;
 
 namespace openiddicttest
 {
@@ -106,6 +110,7 @@ namespace openiddicttest
             app.UseOpenIddict(builder =>
             {
                 builder.Options.AllowInsecureHttp = true;
+                builder.Options.ApplicationCanDisplayErrors = true;
             });
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
@@ -116,6 +121,39 @@ namespace openiddicttest
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+            {
+                context.Database.EnsureCreated();
+
+                // Add Mvc.Client to the known applications.
+                if (context.Applications.Any())
+                {
+                    foreach (var application in context.Applications)
+                        context.Remove(application);
+                    context.SaveChanges();
+                }
+                // Note: when using the introspection middleware, your resource server
+                // MUST be registered as an OAuth2 client and have valid credentials.
+                // 
+                // context.Applications.Add(new Application {
+                //     Id = "resource_server",
+                //     DisplayName = "Main resource server",
+                //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
+                // });
+
+                context.Applications.Add(new Application
+                {
+                    Id = "openiddict-test",
+                    DisplayName = "My test application",
+                    RedirectUri = "http://localhost:58292/signin-oidc",
+                    LogoutRedirectUri = "http://localhost:58292/",
+                    Secret = Crypto.HashPassword("secret_secret_secret"),
+                    Type = OpenIddictConstants.ApplicationTypes.Public
+                });
+
+                context.SaveChanges();
+            }
         }
     }
 }
