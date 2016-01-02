@@ -1,11 +1,103 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
     <title></title>
+    <meta charset="utf-8" />
 </head>
 <body>
-    <a href="/connect/authorize?client_id=openiddict-test&redirect_uri=http://localhost:58292/signin-oidc&response_type=token">Go to OpenIddict</a><br />
-    <a href="/jwt.html">Go to AJAX JWT login</a><br />
+    <h1>Get JWT token &amp; refresh token from OpenIddict</h1>
+    <div>
+        <label>username</label>
+        <input id="username" value="user@test.com" />
+    </div>
+    <div>
+        <label>password</label>
+        <input id="password" value="P2ssw0rd!" />
+    </div>
+    <div>
+        <button id="button">Get Token</button>
+    </div>
+    <strong id="date"></strong>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="response"></pre>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="token"></pre>
+    <script>
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/connect/token";
+
+        document.getElementById("button").addEventListener("click", getToken, false);
+
+        function getToken() {
+            var uid = document.getElementById("username").value;
+            var pwd = document.getElementById("password").value;
+
+            document.getElementById("date").innerText = "loading...";
+            document.getElementById("response").innerText = "loading...";
+            document.getElementById("token").innerText = "";
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function (e) {
+
+                console.log(xhr.status);
+                console.log(xhr.response);
+
+                document.getElementById("date").innerText = new Date().toString();
+                document.getElementById("response").innerText = xhr.response;
+                var decodedToken = decodeToken(JSON.parse(xhr.response).access_token);
+                document.getElementById("token").innerText = JSON.stringify(decodedToken);
+
+                var response_data = JSON.parse(xhr.response);
+            }
+
+            var client_id = "openiddict-test";
+            var client_secret = "secret";
+
+            xhr.open("POST", baseUrl);
+            var data = {
+                username: uid,
+                password: pwd,
+                grant_type: "password",
+                // include refresh tokens in the response
+                scope: "offline_access"
+            };
+            var body = "";
+            for (var key in data) {
+                if (body.length) {
+                    body += "&";
+                }
+                body += key + "=";
+                body += encodeURIComponent(data[key]);
+            }
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(body);
+        }
+
+        function decodeToken(token) {
+            var parts = token.split('.');
+
+            if (parts.length !== 3) {
+                throw new Error('JWT must have 3 parts');
+            }
+
+            var decoded = urlBase64Decode(parts[1]);
+            if (!decoded) {
+                throw new Error('Cannot decode the token');
+            }
+
+            return JSON.parse(decoded);
+        }
+
+        function urlBase64Decode(str) {
+            var output = str.replace('-', '+').replace('_', '/');
+            switch (output.length % 4) {
+                case 0: { break; }
+                case 2: { output += '=='; break; }
+                case 3: { output += '='; break; }
+                default: {
+                    throw 'Illegal base64url string!';
+                }
+            }
+            return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+        }
+
+    </script>
 </body>
 </html>
