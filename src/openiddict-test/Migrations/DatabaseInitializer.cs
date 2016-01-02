@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using openiddicttest.Models;
 using System.Linq;
 using System.Threading.Tasks;
