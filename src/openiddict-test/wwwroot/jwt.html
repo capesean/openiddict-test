@@ -23,9 +23,6 @@
     <script>
         var baseUrl = window.location.protocol + "//" + window.location.host + "/connect/authorize/";
 
-        var client_id = "MyWebsite";
-        var client_secret = "secret";
-
         document.getElementById("button").addEventListener("click", getToken, false);
 
         function decodeToken(token) {
@@ -80,11 +77,17 @@
                 //    revokeToken(response_data.access_token);
                 //}
             }
+
+            var client_id = "openiddict-test";
+            var client_secret = "secret";
+
             xhr.open("POST", baseUrl);
             var data = {
                 username: uid,
                 password: pwd,
                 grant_type: "password",
+                response_type: "token",
+                redirect_uri: "http://localhost:58292/signin-oidc",
                 scope: "test12",
                 client_id: client_id,
                 client_secret:client_secret
