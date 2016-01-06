@@ -56,7 +56,8 @@ namespace openiddicttest
                 {
                     UserName = email,
                     Email = email,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    GivenName = "Sean"
                 };
                 await _userManager.CreateAsync(user, "P2ssw0rd!");
             }

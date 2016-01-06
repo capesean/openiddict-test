@@ -58,8 +58,10 @@
                 username: uid,
                 password: pwd,
                 grant_type: "password",
-                // include refresh tokens in the response
-                scope: "offline_access"
+                // offline_access: indicate refresh token is required
+                // profile: include custom fields
+                // email: include email address
+                scope: "offline_access profile email"
             };
             var body = "";
             for (var key in data) {

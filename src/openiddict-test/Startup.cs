@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenIddict;
 using OpenIddict.Models;
 using openiddicttest.Models;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace openiddicttest
 
             // for seeding the database with the demo user details
             services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
+            services.AddScoped<OpenIddictManager<ApplicationUser, Application>, CustomOpenIddictManager>();
         }
 
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
