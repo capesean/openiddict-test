@@ -11,6 +11,7 @@
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-*",
     "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-*",
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc2-*",
     "Microsoft.AspNet.Mvc": "6.0.0-*",
     "Microsoft.AspNet.Hosting": "1.0.0-*",
     "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
@@ -18,7 +19,10 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
     "AspNet.Security.OAuth.Validation": "1.0.0-*",
     "OpenIddict.Core": "1.0.0-*",
-    "OpenIddict.EF": "1.0.0-*"
+    "OpenIddict.EF": "1.0.0-*",
+    "System.IdentityModel.Tokens.Jwt": "5.0.0-rc2-301150021",
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-15958",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-15958"
   },
 
   "commands": {

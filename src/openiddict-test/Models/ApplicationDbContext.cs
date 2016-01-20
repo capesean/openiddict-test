@@ -1,9 +1,10 @@
 ﻿using Microsoft.Data.Entity;
 using OpenIddict;
+using OpenIddict.Models;
 
 namespace openiddicttest.Models
 {
-    public class ApplicationDbContext : OpenIddictContext<ApplicationUser>
+    public class ApplicationDbContext : OpenIddictContext<ApplicationUser, Application, ApplicationRole, string>
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {

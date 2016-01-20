@@ -43,9 +43,6 @@
             var xhr = new XMLHttpRequest();
             xhr.onload = function (e) {
 
-                console.log(xhr.status);
-                console.log(xhr.response);
-
                 document.getElementById("apiresponse").innerText = xhr.status + ": " + xhr.response;
             }
 
@@ -66,14 +63,10 @@
             var xhr = new XMLHttpRequest();
             xhr.onload = function (e) {
 
-                console.log(xhr.status);
-                console.log(xhr.response);
+                document.getElementById("response").innerText = xhr.response === "" ? "Failed" : xhr.response;
+                var decodedToken = xhr.response === "" ? "" : decodeToken(JSON.parse(xhr.response).access_token);
+                document.getElementById("token").innerText = decodedToken === "" ? "" : JSON.stringify(decodedToken);
 
-                document.getElementById("response").innerText = xhr.response;
-                var decodedToken = decodeToken(JSON.parse(xhr.response).access_token);
-                document.getElementById("token").innerText = JSON.stringify(decodedToken);
-
-                var response_data = JSON.parse(xhr.response);
             }
 
             var client_id = "openiddict-test";

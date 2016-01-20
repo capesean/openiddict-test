@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OpenIddict;
 using OpenIddict.Models;
 using openiddicttest.Models;
-using System.Linq;
 
 namespace openiddicttest
 {
@@ -40,7 +39,7 @@ namespace openiddicttest
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             // add identity: note the AddOpenIddictCore call
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddOpenIddictCore<Application>(config => config.UseEntityFramework());
@@ -55,6 +54,10 @@ namespace openiddicttest
 
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
         {
+            var factory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
+            factory.AddConsole();
+            factory.AddDebug();
+
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
 
             // to serve up index.html
@@ -73,11 +76,14 @@ namespace openiddicttest
                 builder.Options.ApplicationCanDisplayErrors = true;
             });
 
-            // this enables the validation of the api using oauth (i.e. using the access/bearer token)
-            app.UseOAuthValidation(options =>
+            // use jwt bearer authentication
+            app.UseJwtBearerAuthentication(options =>
             {
                 options.AutomaticAuthenticate = true;
                 options.AutomaticChallenge = true;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "http://localhost:58292/";
+                options.Authority = "http://localhost:58292/";
             });
 
             // assuming you have an api...
