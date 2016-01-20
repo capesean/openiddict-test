@@ -14,27 +14,31 @@
         <label>password</label>
         <input id="password" value="P2ssw0rd!" />
     </div>
+    <br />
     <div>
-        <button id="button">Get Token</button>
+        <button id="buttonToken">Get Token</button>
+        <button id="buttonAPI">Get API Data</button>
     </div>
-    <h4>Date</h4>
-    <p id="date"></p>
-    <h4>Response</h4>
+    <h4>API Response</h4>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="apiresponse"></pre>
+    <h4>Token Response</h4>
     <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="response"></pre>
-    <h4>Decoded Token</h4>
+    <h4>Decoded Access Token</h4>
     <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="token"></pre>
     <script>
-        var baseUrl = window.location.protocol + "//" + window.location.host + "/connect/token";
+        var baseUrl = window.location.protocol + "//" + window.location.host + "/";
 
-        document.getElementById("button").addEventListener("click", getToken, false);
+        document.getElementById("buttonToken").addEventListener("click", getToken, false);
+        document.getElementById("buttonAPI").addEventListener("click", getAPI, false);
 
-        function getToken() {
-            var uid = document.getElementById("username").value;
-            var pwd = document.getElementById("password").value;
-
-            document.getElementById("date").innerText = "loading...";
-            document.getElementById("response").innerText = "loading...";
-            document.getElementById("token").innerText = "";
+        function getAPI() {
+            var data = document.getElementById("response").innerText;
+            document.getElementById("apiresponse").innerText = "loading...";
+            if (data === "") {
+                document.getElementById("apiresponse").innerText = "No token"
+                return;
+            }
+            var response = JSON.parse(data);
 
             var xhr = new XMLHttpRequest();
             xhr.onload = function (e) {
@@ -42,7 +46,29 @@
                 console.log(xhr.status);
                 console.log(xhr.response);
 
-                document.getElementById("date").innerText = new Date().toString();
+                document.getElementById("apiresponse").innerText = xhr.status + ": " + xhr.response;
+            }
+
+            xhr.open("GET", baseUrl + "api/test");
+
+            xhr.setRequestHeader("Authorization", "Bearer " + response.access_token);
+            xhr.send();
+        }
+
+        function getToken() {
+            var uid = document.getElementById("username").value;
+            var pwd = document.getElementById("password").value;
+
+            document.getElementById("response").innerText = "loading...";
+            document.getElementById("token").innerText = "loading...";
+            document.getElementById("apiresponse").innerText = "";
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function (e) {
+
+                console.log(xhr.status);
+                console.log(xhr.response);
+
                 document.getElementById("response").innerText = xhr.response;
                 var decodedToken = decodeToken(JSON.parse(xhr.response).access_token);
                 document.getElementById("token").innerText = JSON.stringify(decodedToken);
@@ -53,11 +79,13 @@
             var client_id = "openiddict-test";
             var client_secret = "secret";
 
-            xhr.open("POST", baseUrl);
+            xhr.open("POST", baseUrl + "connect/token");
             var data = {
                 username: uid,
                 password: pwd,
                 grant_type: "password",
+                // specify the resource, to match the audience in the jwt bearer middleware
+                resource: "http://localhost:58292/",
                 // offline_access: indicate refresh token is required
                 // profile: include custom fields
                 // email: include email address
