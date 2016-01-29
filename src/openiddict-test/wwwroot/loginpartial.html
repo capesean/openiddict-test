@@ -1,0 +1,22 @@
+﻿<div>
+
+    <form id="loginForm" name="loginForm" ng-submit="vm.login()" class="form-signin">
+
+        <fieldset class="form-horizontal">
+            
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input id="email" type="text" ng-model="vm.email" max="100" class="form-control" placeholder="Email address" autofocus="" />
+                    <input type="password" id="password" ng-model="vm.password" max="100" class="form-control" placeholder="Password" />
+                </div>
+            </div>
+
+            <input id="loginButton" type="submit" class="btn btn-primary btn-block" value="Login" />
+
+            <pre>{{vm.identity|json}}</pre>
+
+        </fieldset>
+
+    </form>
+
+</div>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html ng-app="openiddicttest">
+<head>
+
+    <title>OPENIDDICT-TEST</title>
+
+    <link rel="stylesheet" href="/content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/content/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/content/site.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+
+    <base href="/">
+
+</head>
+<body id="login">
+
+    <div id="wrapper">
+
+        <div id="page-wrapper">
+
+            <div ng-cloak ui-view></div>
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- 3rd party libraries -->
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-ui-router.js"></script>
+    <script src="scripts/angular-storage.js"></script>
+    <script src="scripts/angular-jwt.js"></script>
+    <script src="scripts/jquery-2.1.3.js"></script>
+    <script src="scripts/app-login.js"></script>
+    <!-- login -->
+    <script src="scripts/authservice.js"></script>
+    <script src="scripts/login.js"></script>
+
+</body>
+</html>
