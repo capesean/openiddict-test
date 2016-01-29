@@ -1,5 +1,5 @@
 # openiddict-test
-Example ASPNET5 project that issues &amp; validates JWT tokens
+Example ASPNET5 project that issues &amp; validates JWT tokens. See http://capesean.co.za/blog/asp-net-5-jwt-tokens/ for full details.
 
 This project uses OpenIddict to issue JWT tokens & refresh tokens. 
 
