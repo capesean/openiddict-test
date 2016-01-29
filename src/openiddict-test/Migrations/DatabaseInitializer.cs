@@ -18,7 +18,7 @@ namespace openiddicttest
 
         public async Task Seed()
         {
-            _context.Database.EnsureCreated();
+            _context.Database.Migrate();
 
             // Add Mvc.Client to the known applications.
             if (_context.Applications.Any())
