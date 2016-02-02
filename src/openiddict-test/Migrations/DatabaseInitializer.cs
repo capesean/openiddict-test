@@ -2,12 +2,13 @@
 using openiddicttest.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
 
 namespace openiddicttest
 {
     public class DatabaseInitializer : IDatabaseInitializer
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public DatabaseInitializer(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
@@ -48,11 +49,10 @@ namespace openiddicttest
             }
 
             var email = "user@test.com";
-            ApplicationUser user;
             if (await _userManager.FindByEmailAsync(email) == null)
             {
                 // use the create rather than addorupdate so can set password
-                user = new ApplicationUser
+                var user = new ApplicationUser
                 {
                     UserName = email,
                     Email = email,
