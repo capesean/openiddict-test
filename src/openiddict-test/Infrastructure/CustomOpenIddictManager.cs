@@ -24,7 +24,7 @@ namespace openiddicttest
                Options.ClaimsIdentity.RoleClaimType);
 
             var claim = new Claim("given_name", user.GivenName);
-            claim.Properties.Add("destination", "profile");
+            claim.Properties.Add("destination", "id_token token");
             claimsIdentity.AddClaim(claim);
 
             return claimsIdentity;
