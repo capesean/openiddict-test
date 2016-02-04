@@ -19,7 +19,7 @@ namespace openiddicttest
 
         public async Task Seed()
         {
-            _context.Database.Migrate();
+            _context.Database.EnsureCreated();
 
             // Add Mvc.Client to the known applications.
             if (_context.Applications.Any())
@@ -49,10 +49,11 @@ namespace openiddicttest
             }
 
             var email = "user@test.com";
+            ApplicationUser user;
             if (await _userManager.FindByEmailAsync(email) == null)
             {
                 // use the create rather than addorupdate so can set password
-                var user = new ApplicationUser
+                user = new ApplicationUser
                 {
                     UserName = email,
                     Email = email,
@@ -60,6 +61,19 @@ namespace openiddicttest
                     GivenName = "Sean"
                 };
                 await _userManager.CreateAsync(user, "P2ssw0rd!");
+            }
+
+            user = await _userManager.FindByEmailAsync(email);
+            var roleName = "testrole";
+            if (!_context.Roles.Any(r => r.Name.ToLower() == roleName))
+            {
+                _context.Roles.Add(new ApplicationRole() { Name = roleName });
+                _context.SaveChanges();
+            }
+
+            if (!await _userManager.IsInRoleAsync(user, roleName))
+            {
+                await _userManager.AddToRoleAsync(user, roleName);
             }
         }
     }

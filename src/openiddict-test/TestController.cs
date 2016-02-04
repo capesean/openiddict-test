@@ -5,7 +5,7 @@ using openiddicttest.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-[Authorize]
+[Authorize(Roles = "testrole")]
 public class TestController : Controller
 {
     private ApplicationDbContext _context;
