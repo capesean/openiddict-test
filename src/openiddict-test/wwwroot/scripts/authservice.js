@@ -25,7 +25,7 @@
         return service;
         function login(loginData) {
             var data = "grant_type=password"
-                + "&scope=offline_access profile email"
+                + "&scope=offline_access profile email roles"
                 + "&resource=" + appSettings.apiServiceBaseUri
                 + "&username=" + loginData.userName
                 + "&password=" + loginData.password;
