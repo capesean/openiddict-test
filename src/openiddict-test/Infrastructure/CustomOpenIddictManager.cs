@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using openiddicttest.Models;
+using AspNet.Security.OpenIdConnect.Extensions;
 using OpenIddict.Models;
-using System;
+using openiddicttest.Models;
 
 namespace openiddicttest
 {
@@ -16,18 +17,15 @@ namespace openiddicttest
 
         public override async Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, IEnumerable<string> scopes)
         {
-            var claimsIdentity = await base.CreateIdentityAsync(user, scopes);
+            var identity = await base.CreateIdentityAsync(user, scopes);
 
-            var identity = new ClaimsIdentity(
-               "",
-               Options.ClaimsIdentity.UserNameClaimType,
-               Options.ClaimsIdentity.RoleClaimType);
+            var name = new Claim("given_name", user.GivenName)
+                .SetDestinations(OpenIdConnectConstants.Destinations.AccessToken,
+                                 OpenIdConnectConstants.Destinations.IdentityToken);
 
-            var claim = new Claim("given_name", user.GivenName);
-            claim.Properties.Add("destination", "id_token token");
-            claimsIdentity.AddClaim(claim);
+            identity.AddClaim(name);
 
-            return claimsIdentity;
+            return identity;
         }
     }
 }
