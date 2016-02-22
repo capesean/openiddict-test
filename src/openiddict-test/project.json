@@ -1,7 +1,8 @@
 ﻿{
   "version": "1.0.0-*",
   "compilationOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
   },
 
   "dependencies": {
@@ -19,9 +20,8 @@
     "AspNet.Security.OAuth.Validation": "1.0.0-*",
     "OpenIddict.Core": "1.0.0-*",
     "OpenIddict.EF": "1.0.0-*",
-    "System.IdentityModel.Tokens.Jwt": "5.0.0-rc2-301150021",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-16095",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-16095"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-*",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-*"
   },
 
   "commands": {

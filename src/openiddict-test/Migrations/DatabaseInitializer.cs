@@ -10,11 +10,13 @@ namespace openiddicttest
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public DatabaseInitializer(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public DatabaseInitializer(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _context = context;
+            _roleManager = roleManager;
         }
 
         public async Task Seed()
@@ -65,10 +67,9 @@ namespace openiddicttest
 
             user = await _userManager.FindByEmailAsync(email);
             var roleName = "testrole";
-            if (!_context.Roles.Any(r => r.Name.ToLower() == roleName))
+            if (await _roleManager.FindByNameAsync(roleName) == null)
             {
-                _context.Roles.Add(new ApplicationRole() { Name = roleName });
-                _context.SaveChanges();
+                await _roleManager.CreateAsync(new ApplicationRole() { Name = roleName });
             }
 
             if (!await _userManager.IsInRoleAsync(user, roleName))
