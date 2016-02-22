@@ -5,29 +5,28 @@
   },
 
   "dependencies": {
-    "EntityFramework.Commands": "7.0.0-*",
-    "EntityFramework.MicrosoftSqlServer": "7.0.0-*",
-    "Microsoft.AspNet.Authentication.Cookies": "1.0.0-*",
-    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-*",
-    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-*",
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-rc2-*",
-    "Microsoft.AspNet.Mvc": "6.0.0-*",
-    "Microsoft.AspNet.Hosting": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-*",
+    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc2-*",
+    "Microsoft.AspNetCore.Mvc": " 1.0.0-*",
+    "Microsoft.AspNetCore.Hosting": "1.0.0-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
     "AspNet.Security.OAuth.Validation": "1.0.0-*",
     "OpenIddict.Core": "1.0.0-*",
     "OpenIddict.EF": "1.0.0-*",
     "System.IdentityModel.Tokens.Jwt": "5.0.0-rc2-301150021",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-15958",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-15958"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-16095",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-16095"
   },
 
   "commands": {
     "web": "openiddict-test",
-    "ef": "EntityFramework.Commands"
+    "ef": "EntityFrameworkCore.Commands"
   },
 
   "frameworks": {

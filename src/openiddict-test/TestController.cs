@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using openiddicttest.Models;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 [Authorize(Roles = "testrole")]
@@ -20,7 +19,7 @@ public class TestController : Controller
     [Route("api/test"), HttpGet]
     public async Task<IActionResult> Get()
     {
-        var user = await _userManager.FindByIdAsync(User.GetUserId());
+        var user = await _userManager.GetUserAsync(User);
         if (user == null) return Ok("No user / not logged in");// if Authorize is not applied
         return Ok(user);
     }

@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenIddict;
 using OpenIddict.Models;
 using openiddicttest.Models;
+using System.Threading.Tasks;
 
 namespace openiddicttest
 {
@@ -16,8 +19,10 @@ namespace openiddicttest
 
         public static void Main(string[] args)
         {
-            var application = new WebApplicationBuilder()
-                .UseConfiguration(WebApplicationConfiguration.GetDefault(args))
+            var application = new WebHostBuilder()
+                .UseDefaultConfiguration(args)
+                .UseIISPlatformHandlerUrl()
+                .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                 .UseStartup<Startup>()
                 .Build();
 
@@ -55,10 +60,10 @@ namespace openiddicttest
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
         {
             var factory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
-            factory.AddConsole();
-            factory.AddDebug();
+            factory.AddConsole(minLevel: LogLevel.Debug);
+            factory.AddDebug(minLevel: LogLevel.Debug);
 
-            app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
+            app.UseIISPlatformHandler();
 
             // to serve up index.html
             app.UseDefaultFiles();
@@ -76,15 +81,20 @@ namespace openiddicttest
                 builder.Options.ApplicationCanDisplayErrors = true;
             });
 
-            // use jwt bearer authentication
-            app.UseJwtBearerAuthentication(options =>
+            var Events = new JwtBearerEvents
             {
-                options.AutomaticAuthenticate = true;
-                options.AutomaticChallenge = true;
-                options.RequireHttpsMetadata = false;
-                options.Audience = "http://localhost:58292/";
-                options.Authority = "http://localhost:58292/";
-            });
+                OnAuthenticationFailed = context => Task.FromResult(0)
+            };
+
+        // use jwt bearer authentication
+        app.UseJwtBearerAuthentication(new JwtBearerOptions {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                RequireHttpsMetadata = false,
+                Audience = "http://localhost:58292/",
+                Authority = "http://localhost:58292/"
+                 ,Events = Events
+    });
 
             // assuming you have an api...
             app.UseMvc(routes =>

@@ -33,23 +33,21 @@
         document.getElementById("buttonAPI").addEventListener("click", getAPI, false);
 
         function getAPI() {
-            var data = document.getElementById("response").innerText;
             document.getElementById("apiresponse").innerText = "loading...";
-            if (data === "") {
-                document.getElementById("apiresponse").innerText = "No token"
-                return;
-            }
-            var response = JSON.parse(data);
 
             var xhr = new XMLHttpRequest();
             xhr.onload = function (e) {
-
                 document.getElementById("apiresponse").innerText = xhr.status + ": " + xhr.response;
             }
 
             xhr.open("GET", baseUrl + "api/test");
 
-            xhr.setRequestHeader("Authorization", "Bearer " + response.access_token);
+            var data = document.getElementById("response").innerText;
+            document.getElementById("apiresponse").innerText = "loading...";
+            if (data !== "") {
+                var response = JSON.parse(data);
+                xhr.setRequestHeader("Authorization", "Bearer " + response.access_token);
+            }
             xhr.send();
         }
 

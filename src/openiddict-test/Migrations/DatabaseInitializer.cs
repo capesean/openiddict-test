@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using openiddicttest.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace openiddicttest
 {
