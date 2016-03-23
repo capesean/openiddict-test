@@ -38,8 +38,7 @@ namespace openiddicttest
             Configuration = builder.Build();
 
             // add entity framework using the config connection string
-            services.AddEntityFramework()
-                .AddSqlServer()
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
@@ -59,11 +58,13 @@ namespace openiddicttest
 
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
         {
-            var factory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
+            var factory = (ILoggerFactory)app.ApplicationServices.GetService(typeof(ILoggerFactory));
             factory.AddConsole(minLevel: LogLevel.Debug);
-            factory.AddDebug(minLevel: LogLevel.Debug);
+            //factory.AddDebug(minLevel: LogLevel.Debug);
 
             app.UseIISPlatformHandler();
+
+            app.UseDeveloperExceptionPage();
 
             // to serve up index.html
             app.UseDefaultFiles();
@@ -93,7 +94,7 @@ namespace openiddicttest
                 RequireHttpsMetadata = false,
                 Audience = "http://localhost:58292/",
                 Authority = "http://localhost:58292/"
-                 ,Events = Events
+                ,Events = Events
     });
 
             // assuming you have an api...

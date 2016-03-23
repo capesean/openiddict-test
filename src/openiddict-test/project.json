@@ -6,12 +6,13 @@
   },
 
   "dependencies": {
+    "Microsoft.NETCore.Platforms": "1.0.1-*",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-*",
     "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc2-*",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-*",
     "Microsoft.AspNetCore.Mvc": " 1.0.0-*",
     "Microsoft.AspNetCore.Hosting": "1.0.0-*",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
@@ -20,8 +21,8 @@
     "AspNet.Security.OAuth.Validation": "1.0.0-*",
     "OpenIddict.Core": "1.0.0-*",
     "OpenIddict.EF": "1.0.0-*",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-*",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-*"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-*",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-*"
   },
 
   "commands": {
