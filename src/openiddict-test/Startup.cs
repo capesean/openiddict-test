@@ -19,10 +19,9 @@ namespace openiddicttest
         public static void Main(string[] args)
         {
             var application = new WebHostBuilder()
-                .UseCaptureStartupErrors(captureStartupError: true)
-                .UseDefaultConfiguration(args)
+                .UseDefaultHostingConfiguration(args)
                 .UseIISPlatformHandlerUrl()
-                .UseServer("Microsoft.AspNetCore.Server.Kestrel")
+                .UseKestrel()
                 .UseStartup<Startup>()
                 .Build();
 
