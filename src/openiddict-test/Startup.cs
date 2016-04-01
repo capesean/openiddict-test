@@ -19,6 +19,8 @@ namespace openiddicttest
         public static void Main(string[] args)
         {
             var application = new WebHostBuilder()
+                .ConfigureLogging(options => options.AddDebug(minLevel: LogLevel.Debug))
+                .ConfigureLogging(options => options.AddConsole(minLevel: LogLevel.Debug))
                 .UseDefaultHostingConfiguration(args)
                 .UseIISPlatformHandlerUrl()
                 .UseKestrel()
@@ -57,10 +59,6 @@ namespace openiddicttest
 
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
         {
-            var factory = (ILoggerFactory)app.ApplicationServices.GetService(typeof(ILoggerFactory));
-            factory.AddConsole(minLevel: LogLevel.Debug);
-            //factory.AddDebug(minLevel: LogLevel.Debug);
-
             app.UseIISPlatformHandler();
 
             app.UseDeveloperExceptionPage();
