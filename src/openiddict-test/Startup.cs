@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using OpenIddict;
 using OpenIddict.Models;
 using openiddicttest.Models;
-using System.Threading.Tasks;
 
 namespace openiddicttest
 {
@@ -79,20 +77,15 @@ namespace openiddicttest
                 builder.Options.ApplicationCanDisplayErrors = true;
             });
 
-            var Events = new JwtBearerEvents
+            // use jwt bearer authentication
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
-                OnAuthenticationFailed = context => Task.FromResult(0)
-            };
-
-        // use jwt bearer authentication
-        app.UseJwtBearerAuthentication(new JwtBearerOptions {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 RequireHttpsMetadata = false,
                 Audience = "http://localhost:58292/",
                 Authority = "http://localhost:58292/"
-                ,Events = Events
-    });
+            });
 
             // assuming you have an api...
             app.UseMvc(routes =>
