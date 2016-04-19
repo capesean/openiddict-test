@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OpenIddict;
 using OpenIddict.Models;
 using openiddicttest.Models;
@@ -13,20 +11,6 @@ namespace openiddicttest
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
-
-        public static void Main(string[] args)
-        {
-            var application = new WebHostBuilder()
-                .ConfigureLogging(options => options.AddDebug(minLevel: LogLevel.Debug))
-                .ConfigureLogging(options => options.AddConsole(minLevel: LogLevel.Debug))
-                .UseDefaultHostingConfiguration(args)
-                .UseIISPlatformHandlerUrl()
-                .UseKestrel()
-                .UseStartup<Startup>()
-                .Build();
-
-            application.Run();
-        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -57,8 +41,6 @@ namespace openiddicttest
 
         public void Configure(IApplicationBuilder app, IDatabaseInitializer databaseInitializer)
         {
-            app.UseIISPlatformHandler();
-
             app.UseDeveloperExceptionPage();
 
             // to serve up index.html
