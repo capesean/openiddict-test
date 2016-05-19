@@ -1,44 +1,53 @@
 ﻿{
-  "version": "1.0.0-*",
-  "compilationOptions": {
+  "buildOptions": {
+    "debugType": "portable",
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "warningsAsErrors": true,
+    "preserveCompilationContext": true,
+
+    "copyToOutput": {
+      "include": [
+        "wwwroot",
+        "appsettings.json",
+        "web.config"
+      ]
+    }
   },
 
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-*",
-    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0-*",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-*",
-    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
-    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-*",
-    "Microsoft.AspNetCore.Mvc": " 1.0.0-*",
-    "Microsoft.AspNetCore.Hosting": "1.0.0-*",
-    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
-    "Microsoft.AspNetCore.StaticFiles": "1.0.0-*",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-*",
-    "AspNet.Security.OAuth.Validation": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Hosting": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Configuration.CommandLine": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-final",
+    "AspNet.Security.OAuth.Validation": "1.0.0-alpha1-*",
     "OpenIddict.Core": "1.0.0-*",
     "OpenIddict.EF": "1.0.0-*",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-*",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-*"
-  },
-
-  "commands": {
-    "web": "openiddict-test",
-    "ef": "EntityFrameworkCore.Commands"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-final"
   },
 
   "frameworks": {
     "net451": {
-      "frameworkAssemblies": {
-        "System.Runtime": { "type": "build", "version": "4.0.10.0" }
+      "dependencies": {
+        "Microsoft.NETCore.Platforms": "1.0.1-rc2-24027"
       }
     },
 
-    "netstandardapp1.5": {
+    "netcoreapp1.0": {
       "dependencies": {
-        "NETStandard.Library": "1.5.0-*"
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0-rc2-3002702"
+        }
       },
 
       "imports": [
@@ -48,13 +57,22 @@
     }
   },
 
-  "exclude": [
-    "wwwroot",
-    "node_modules"
-  ],
-  "publishExclude": [
-    "**.user",
-    "**.vspscc"
-  ]
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
+      "version": "1.0.0-preview1-final",
+      "imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
+    }
+  },
 
+  "scripts": {
+    "postpublish": "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+  },
+
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "appsettings.json",
+      "web.config"
+    ]
+  }
 }
