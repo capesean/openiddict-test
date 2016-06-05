@@ -29,8 +29,7 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0-rc2-final",
     "Microsoft.Extensions.Configuration.Json": "1.0.0-rc2-final",
     "AspNet.Security.OAuth.Validation": "1.0.0-alpha1-*",
-    "OpenIddict.Core": "1.0.0-*",
-    "OpenIddict.EF": "1.0.0-*",
+    "OpenIddict": "1.0.0-*",
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-final"
   },

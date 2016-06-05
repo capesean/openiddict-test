@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenIddict;
-using OpenIddict.Models;
 
 namespace openiddicttest.Models
 {
-    public class ApplicationDbContext : OpenIddictContext<ApplicationUser, Application, ApplicationRole, string>
+    public class ApplicationDbContext : OpenIddictContext<ApplicationUser, ApplicationRole>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
