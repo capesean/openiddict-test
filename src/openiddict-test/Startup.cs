@@ -29,7 +29,7 @@ namespace openiddicttest
                 .AddDefaultTokenProviders();
 
             // add OpenIddict
-            services.AddOpenIddict<ApplicationUser, ApplicationDbContext>()
+            services.AddOpenIddict<ApplicationUser, ApplicationRole, ApplicationDbContext>()
                 .AddTokenManager<CustomOpenIddictManager>()
                 .DisableHttpsRequirement()
                 .UseJsonWebTokens();
