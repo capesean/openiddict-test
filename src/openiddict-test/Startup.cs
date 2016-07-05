@@ -26,11 +26,11 @@ namespace openiddicttest
             // add identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddUserManager<CustomOpenIddictManager>()
                 .AddDefaultTokenProviders();
 
             // add OpenIddict
             services.AddOpenIddict<ApplicationUser, ApplicationRole, ApplicationDbContext>()
-                .AddTokenManager<CustomOpenIddictManager>()
                 .DisableHttpsRequirement()
                 .UseJsonWebTokens();
 

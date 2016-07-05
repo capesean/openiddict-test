@@ -9,10 +9,11 @@ namespace openiddicttest
     {
         public static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
+			var configuration = new ConfigurationBuilder()
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
+
 
             var host = new WebHostBuilder()
                 .ConfigureLogging(options => options.AddConsole())
