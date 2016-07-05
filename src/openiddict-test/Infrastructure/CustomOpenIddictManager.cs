@@ -12,17 +12,22 @@ using openiddicttest.Models;
 
 namespace openiddicttest
 {
-    public class CustomOpenIddictManager : OpenIddictTokenManager<OpenIddictToken, ApplicationUser>
-    {
-        public CustomOpenIddictManager(
-            IServiceProvider services,
-            IOpenIddictTokenStore<OpenIddictToken> store,
-            UserManager<ApplicationUser> users,
-            IOptions<IdentityOptions> options,
-            ILogger<OpenIddictTokenManager<OpenIddictToken, ApplicationUser>> logger)
-            : base(services, store, users, options, logger)
-        {
-        }
+	public class CustomOpenIddictManager : OpenIddictUserManager<ApplicationUser>
+	{
+		public CustomOpenIddictManager(
+			IServiceProvider services,
+			IOpenIddictUserStore<ApplicationUser> store,
+			IOptions<IdentityOptions> options,
+			ILogger<OpenIddictUserManager<ApplicationUser>> logger,
+			IPasswordHasher<ApplicationUser> hasher,
+			IEnumerable<IUserValidator<ApplicationUser>> userValidators,
+			IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators,
+			ILookupNormalizer keyNormalizer,
+			IdentityErrorDescriber errors
+			)
+			: base(services, store, options, logger, hasher, userValidators, passwordValidators, keyNormalizer, errors)
+		{
+		}
 
         public override async Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, IEnumerable<string> scopes)
         {
@@ -34,5 +39,5 @@ namespace openiddicttest
 
             return claimsIdentity;
         }
-    }
+	}
 }
