@@ -32,6 +32,8 @@ namespace openiddicttest
             // add OpenIddict
             services.AddOpenIddict<ApplicationUser, ApplicationRole, ApplicationDbContext>()
                 .DisableHttpsRequirement()
+                .EnableTokenEndpoint("/connect/token")
+                .AllowPasswordFlow()
                 .UseJsonWebTokens();
 
             // assuming you have an api...
