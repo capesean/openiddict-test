@@ -34,6 +34,7 @@ namespace openiddicttest
                 .DisableHttpsRequirement()
                 .EnableTokenEndpoint("/connect/token")
                 .AllowPasswordFlow()
+                .AllowRefreshTokenFlow()
                 .UseJsonWebTokens();
 
             // assuming you have an api...
