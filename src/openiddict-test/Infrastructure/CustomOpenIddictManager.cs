@@ -8,7 +8,6 @@ using openiddicttest.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace openiddicttest
@@ -33,7 +32,7 @@ namespace openiddicttest
         public override async Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, IEnumerable<string> scopes)
         {
             var claimsIdentity = await base.CreateIdentityAsync(user, scopes);
-            
+
             claimsIdentity.AddClaim("given_name", user.GivenName,
                 OpenIdConnectConstants.Destinations.AccessToken,
                 OpenIdConnectConstants.Destinations.IdentityToken);
