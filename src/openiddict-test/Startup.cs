@@ -35,7 +35,8 @@ namespace openiddicttest
                 .EnableTokenEndpoint("/connect/token")
                 .AllowPasswordFlow()
                 .AllowRefreshTokenFlow()
-                .UseJsonWebTokens();
+                .UseJsonWebTokens()
+                .AddEphemeralSigningKey();
 
             // assuming you have an api...
             services.AddMvc();
