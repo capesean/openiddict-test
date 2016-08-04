@@ -1,6 +1,4 @@
 ﻿(function () {
-
-
     // Create all modules and define dependencies to make sure they exist
     // and are loaded in the correct order to satisfy dependency injection
     // before all nested files are concatenated by Grunt
@@ -14,7 +12,6 @@
 
     angular.module('angular-jwt.interceptor', [])
      .provider('jwtInterceptor', function () {
-
          this.authHeader = 'Authorization';
          this.authPrefix = 'Bearer ';
          this.tokenGetter = function () {
@@ -60,7 +57,6 @@
 
     angular.module('angular-jwt.jwt', [])
      .service('jwtHelper', function () {
-
          this.urlBase64Decode = function (str) {
              var output = str.replace('-', '+').replace('_', '/');
              switch (output.length % 4) {
@@ -73,7 +69,6 @@
              }
              return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
          }
-
 
          this.decodeToken = function (token) {
              var parts = token.split('.');
@@ -115,5 +110,4 @@
              return !(d.valueOf() > new Date().valueOf());
          };
      });
-
 }());

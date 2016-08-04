@@ -118,7 +118,6 @@ fieldset.form-horizontal span.control-label {
     margin-bottom: 25px;
 }
 
-
 #loginMenu b.caret {
     margin-left: 5px;
 }
@@ -126,4 +125,3 @@ fieldset.form-horizontal span.control-label {
 body.login #breadcrumb {
     display: none;
 }
-

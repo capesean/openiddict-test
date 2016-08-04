@@ -126,7 +126,7 @@
         // private functions -------------------------
         function storeData(accessToken, refreshToken) {
             var authData = { token: accessToken, refreshToken: refreshToken };
-            // todo: don't store in localstorage for xss reasons; 
+            // todo: don't store in localstorage for xss reasons;
             // store in cookie & retrieve when user returns...
             store.set(storageKey, authData);
             getIdentity();
@@ -143,7 +143,6 @@
             authorize: function () {
                 return authService.getIdentity()
                     .then(function () {
-
                         if (!authService.isLoggedIn()) {
                             // redirect to login
                             $window.location.assign("/login?url=" + encodeURIComponent($window.location.pathname + $window.location.search));
@@ -158,7 +157,6 @@
                                 $state.go("accessdenied");
                             }
                         };
-
                     });
             }
         };

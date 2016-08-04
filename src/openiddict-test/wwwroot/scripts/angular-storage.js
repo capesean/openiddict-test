@@ -1,6 +1,4 @@
 ﻿(function () {
-
-
     // Create all modules and define dependencies to make sure they exist
     // and are loaded in the correct order to satisfy dependency injection
     // before all nested files are concatenated by Grunt
@@ -12,7 +10,6 @@
 
     angular.module('angular-storage.internalStore', ['angular-storage.storage'])
       .factory('InternalStore', ["storage", "$log", function (storage, $log) {
-
           function InternalStore(namespace, delimiter) {
               this.namespace = namespace || null;
               this.delimiter = delimiter || '.';
@@ -27,8 +24,6 @@
               }
           };
 
-
-
           InternalStore.prototype.set = function (name, elem) {
               this.inMemoryCache[name] = elem;
               storage.set(this.getNamespacedKey(name), JSON.stringify(elem));
@@ -41,7 +36,6 @@
               }
               var saved = storage.get(this.getNamespacedKey(name));
               try {
-
                   if (typeof saved === "undefined" || saved === "undefined") {
                       obj = undefined;
                   } else {
@@ -62,10 +56,7 @@
           };
 
           return InternalStore;
-
-
       }]);
-
 
     angular.module('angular-storage.storage', [])
       .service('storage', ["$window", "$injector", function ($window, $injector) {
@@ -93,19 +84,13 @@
           }
       }]);
 
-
     angular.module('angular-storage.store', ['angular-storage.internalStore'])
       .factory('store', ["InternalStore", function (InternalStore) {
-
           var store = new InternalStore();
           store.getNamespacedStore = function (namespace, key) {
               return new InternalStore(namespace, key);
           }
 
           return store;
-
-
       }]);
-
-
 }());
