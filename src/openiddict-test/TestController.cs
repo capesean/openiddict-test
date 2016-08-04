@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OpenIddict;
 using openiddicttest.Models;
+using System.Linq;
 using System.Threading.Tasks;
 
 [Authorize(Roles = "testrole")]
 public class TestController : Controller
 {
     private ApplicationDbContext _context;
-    private UserManager<ApplicationUser> _userManager;
+    private OpenIddictUserManager<ApplicationUser> _userManager;
 
-    public TestController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+    public TestController(ApplicationDbContext context, OpenIddictUserManager<ApplicationUser> userManager)
     {
         _context = context;
         _userManager = userManager;
@@ -21,6 +22,8 @@ public class TestController : Controller
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Ok("No user / not logged in");// if Authorize is not applied
-        return Ok(user);
+
+        var claims = User.Claims.Select(claim => new { claim.Type, claim.Value }).ToArray();
+        return Json(claims);
     }
 }
