@@ -26,7 +26,6 @@ namespace openiddicttest
             // add identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserManager<CustomOpenIddictManager>()
                 .AddDefaultTokenProviders();
 
             // add OpenIddict
