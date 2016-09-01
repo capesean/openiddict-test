@@ -76,7 +76,7 @@ namespace openiddicttest
             });
 
             // seed the database
-            databaseInitializer.Seed();
+            databaseInitializer.Seed().GetAwaiter().GetResult();
         }
     }
 }
