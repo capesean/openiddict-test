@@ -26,7 +26,6 @@ namespace openiddicttest
             // add identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserManager<CustomOpenIddictManager>()
                 .AddDefaultTokenProviders();
 
             // add OpenIddict
@@ -77,7 +76,7 @@ namespace openiddicttest
             });
 
             // seed the database
-            databaseInitializer.Seed();
+            databaseInitializer.Seed().GetAwaiter().GetResult();
         }
     }
 }
